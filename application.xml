@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<application xmlns="http://ns.adobe.com/air/application/4.0">
+  <id>com.shader.lowCarbon</id>
+  <versionNumber>1.0</versionNumber>
+  <filename>lowCarbon</filename>
+  <name>lowCarbon</name>
+  <initialWindow>
+    <title>lowCarbon</title>
+    <content>lowCarbonair.swf</content>
+    <systemChrome>none</systemChrome>
+    <transparent>false</transparent>
+    <visible>true</visible>
+    <minimizable>false</minimizable>
+    <maximizable>false</maximizable>
+    <resizable>false</resizable>
+    <renderMode>direct</renderMode>
+  </initialWindow>
+  <!-- 
+	More options:
+	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
+	-->
+</application>
