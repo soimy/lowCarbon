@@ -1,5 +1,6 @@
 package lowCarbon
 {
+	import com.shader.utils.Stats;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -7,6 +8,7 @@ package lowCarbon
 	import flash.utils.setTimeout;
 	import flash.ui.Keyboard;
 	import flash.desktop.NativeApplication;
+	import flash.external.ExternalInterface;
 	import starling.core.StatsDisplay;
 	
 	import starling.core.Starling;
@@ -31,26 +33,33 @@ package lowCarbon
 			stage.align = StageAlign.TOP_LEFT;
 			setTimeout(startApp, 100);
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKey);
+			
+			if (ExternalInterface.available) {
+                try {
+                    debugMC.serialDebug.appendText("Adding callback...\n");
+                    ExternalInterface.addCallback("toFlash", inputFunc);
+                } catch (error:SecurityError) {
+                    debugMC.serialDebug.appendText("A SecurityError occurred: " + error.message + "\n");
+                } catch (error:Error) {
+                    debugMC.serialDebug.appendText("An Error occurred: " + error.message + "\n");
+                }
+            } else {
+                debugMC.serialDebug.appendText("External interface is not available for this container.\n");
+            }
+			
 		}
 		
 		private function onKey(e:KeyboardEvent):void 
 		{
 			if (e.keyCode == Keyboard.ESCAPE)
 				NativeApplication.nativeApplication.exit(0);
-			else if(e.keyCode == Keyboard.UP){
-				Game(_starling.root).speed += 0.1;
-			}
-			else if(e.keyCode == Keyboard.DOWN){
-				Game(_starling.root).speed -= 0.1;
-			}
 		}
 		
 		public function startApp():void 
 		{
-			_starling = new Starling(Game, stage);
+			_starling = new Starling(BouncingBox, stage);
 			//_starling.showStats = true;
 			_starling.start();
-			
 		}
 		
 	}

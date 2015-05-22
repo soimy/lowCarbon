@@ -10,7 +10,7 @@
  *
  **/
 
-package lowCarbon {
+package com.shader.utils {
 	
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
