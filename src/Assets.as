@@ -1,4 +1,4 @@
-package lowCarbon 
+package 
 {
 	import flash.display.Bitmap;
 	import flash.utils.Dictionary;
@@ -11,29 +11,26 @@ package lowCarbon
 	public class Assets 
 	{
 		
-		[Embed(source = "../../assets/spritesheet_env.png")]
+		[Embed(source = "../assets/spritesheet_env.png")]
 		public static const AtlasTexture_env:Class;
 		
-		[Embed(source = "../../assets/spritesheet_env.xml", mimeType = "application/octet-stream")]
+		[Embed(source = "../assets/spritesheet_env.xml", mimeType = "application/octet-stream")]
 		public static const AtlasXml_env:Class;
 		
-		[Embed(source = "../../assets/spritesheet_hero.png")]
+		[Embed(source = "../assets/spritesheet_hero.png")]
 		public static const AtlasTexture_hero:Class;
 		
-		[Embed(source = "../../assets/spritesheet_hero.xml", mimeType = "application/octet-stream")]
+		[Embed(source = "../assets/spritesheet_hero.xml", mimeType = "application/octet-stream")]
 		public static const AtlasXml_hero:Class;
-		
-		[Embed(source = "../../assets/env/bush02.png")]
-		public static const Texture_bush01:Class;
 		
 		private static var gameTextures:Dictionary = new Dictionary();
 		private static var gameTextureAtlas:Dictionary = new Dictionary();
 		
-		private static function getAtlas(name:String):TextureAtlas
+		public static function getAtlas(name:String):TextureAtlas
 		{
 			if(gameTextureAtlas[name] == undefined){
-				var tex:Texture = getTexture(name);
-				var xml:XML = XML(new Assets[name]());
+				var tex:Texture = getTexture("AtlasTexture_"+name);
+				var xml:XML = XML(new Assets["AtlasXml_"+name]());
 				gameTextureAtlas[name] = new TextureAtlas(tex, xml);
 			}
 			return gameTextureAtlas[name];

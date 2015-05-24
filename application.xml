@@ -14,9 +14,15 @@
     <maximizable>false</maximizable>
     <resizable>false</resizable>
     <renderMode>direct</renderMode>
+    <x>0</x>
+    <y>0</y>
   </initialWindow>
   <!-- 
 	More options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
 	-->
+  <supportedProfiles>desktop</supportedProfiles>
+  <android>
+    <manifestAdditions><![CDATA[<manifest android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" />]]></manifestAdditions>
+  </android>
 </application>
