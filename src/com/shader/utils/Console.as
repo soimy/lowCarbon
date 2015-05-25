@@ -27,7 +27,7 @@ package com.shader.utils
 			this.mouseEnabled = false;
 			this.selectable = false;
 			var format:TextFormat = new TextFormat();
-			format.font = '_sans';
+			format.font = 'consolas';
 			format.size = 13;
 			this.defaultTextFormat = format;
 		}

@@ -1,6 +1,8 @@
 package
 {
 	import BouncingBox;
+	import com.quetwo.Arduino.ArduinoConnector;
+	import com.quetwo.Arduino.ArduinoConnectorEvent;
 	import com.shader.utils.Console;
 	import com.shader.utils.Stats;
 	import flash.display.Sprite;
@@ -11,6 +13,7 @@ package
 	import flash.filesystem.File;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
 	import flash.utils.setTimeout;
 	import flash.utils.getTimer;
 	import flash.ui.Keyboard;
@@ -55,6 +58,11 @@ package
 		// XML Param
 		private var settings:XML;
 		
+		// Serial Port setup
+		public var serialPort:ArduinoConnector;
+		private var portNo:String;
+		private var bautRate:Number;
+		
 		public function Main():void
 		{
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -65,6 +73,7 @@ package
 			var xmlFile:File = File.applicationDirectory.resolvePath("settings.xml");
 			settingsLoader.load(new URLRequest(xmlFile.nativePath));
 			settingsLoader.addEventListener(Event.COMPLETE, processXML);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, onExit);
 			
 			// initialize game variables
 			lastTime = getTimer();
@@ -75,6 +84,13 @@ package
 			//Mouse.hide();
 		}
 		
+		private function onExit(e:Event):void 
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, onExit);
+			serialPort.dispose();
+			console.log("Disabling Serial Port");
+		}
+		
 		private function processXML(e:Event):void
 		{
 			settings = new XML(e.target.data);
@@ -82,6 +98,9 @@ package
 			isDiag = settings.isDiag[0] == "true";
 			sampleRate = Number(settings.sampleRate[0]);
 			wheelLength = Number(settings.wheelLength[0]);
+			
+			portNo = settings.com[0];
+			bautRate = Number(settings.bautRate[0]);
 			
 			//addEventListener(Event.ENTER_FRAME, onUpdate);
 			init();
@@ -105,7 +124,7 @@ package
 			// if isDiag is true, show the stats and console
 			stats.visible = console.visible = isDiag;
 			
-			diagSerialPort();
+			initSerialPort();
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKey);
 			this.addEventListener(Event.ENTER_FRAME, onUpdate);
 			setTimeout(startApp, 100);
@@ -134,41 +153,37 @@ package
                 //currentWalt = currentSpeed/3.6 * bikeWaltConstant;
             }
 			
-			if(_starling)
-				BouncingBox(_starling.root).speed = currentSpeed / baseSpeed;
-		}
-		
-		private function diagSerialPort():void
-		{
-			if (ExternalInterface.available)
-			{
-				try
-				{
-					console.log("Adding callback...");
-					ExternalInterface.addCallback("toFlash", inputFunc);
-				}
-				catch (error:SecurityError)
-				{
-					console.log("A SecurityError occurred: " + error.message);
-				}
-				catch (error:Error)
-				{
-					console.log("An Error occurred: " + error.message + "\n");
-				}
+			if(_starling){
+				Game(_starling.root)._hero.playbackSpeed = currentSpeed / baseSpeed;
+				//BouncingBox(_starling.root).speed = currentSpeed / baseSpeed;
 			}
-			else
-			{
-				console.log("External interface is not available for this container.");
-			}
-		
 		}
 		
-		private function inputFunc(str:String):void
+		private function initSerialPort():void
 		{
-			console.log("external send (length:" + str.length + "): " + str + "\n");
-			calcSpeed();
+			serialPort = new ArduinoConnector();
+			trace(serialPort.getComPorts(true));
+			serialPort.connect("COM"+portNo, bautRate);
+			serialPort.addEventListener("socketData", onSerialPortRecieve);
 		}
 		
+		private function onSerialPortRecieve(e:Event):void 
+		{
+			var bytesAvailable:Number = serialPort.bytesAvailable
+			if ( bytesAvailable > 0 ) { 
+				var serialData:String = "";
+				var tmpChar:String;
+				for (var i:int = 0; i < bytesAvailable; i++) 
+				{
+					tmpChar = uint2hex(serialPort.readByte());
+					serialData += tmpChar + " ";
+				}
+				console.log("Serial Recieved (" + bytesAvailable+") : " + serialData);
+				calcSpeed();
+			}
+		}
+		
+
 		private function onKey(e:KeyboardEvent):void
 		{
 			if (e.keyCode == Keyboard.ESCAPE || e.keyCode == Keyboard.Q)
@@ -201,14 +216,29 @@ package
 			if (currentSpeed < baseSpeed)
 				currentSpeed = baseSpeed;
 			//currentWalt = currentSpeed/3.6 * bikeWaltConstant;
-			console.log("CurrentSpeed: " + currentSpeed);
+			//console.log("CurrentSpeed: " + currentSpeed);
 		}
 		
 		public function startApp():void
 		{
-			_starling = new Starling(BouncingBox, stage);
+			_starling = new Starling(Game, stage);
 			//_starling.showStats = true;
 			_starling.start();
+		}
+		
+		public function uint2hex(dec:uint):String 
+		{
+			var digits:String = "0123456789ABCDEF";
+			var hex:String = '';
+		 
+			while (dec > 0) {
+				var next:uint = dec & 0xF;
+				dec >>= 4;
+				hex = digits.charAt(next) + hex;
+			}
+			if (hex.length == 0) hex = '0'
+			if (hex.length == 1) hex = "0" + hex;
+			return hex;
 		}
 	
 	}
