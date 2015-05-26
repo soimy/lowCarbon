@@ -28,7 +28,7 @@ package
 	 * @author Shen Yiming
 	 */
 	
-	[SWF(width="500",height="500",frameRate="60",backgroundColor="#000000")]
+	[SWF(width="1080",height="1920",frameRate="60",backgroundColor="#000000")]
 	
 	public class Main extends Sprite
 	{
@@ -65,7 +65,7 @@ package
 		
 		public function Main():void
 		{
-			stage.scaleMode = StageScaleMode.NO_SCALE;
+			//stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
 			// XML Param Phraser
@@ -154,7 +154,7 @@ package
             }
 			
 			if(_starling){
-				Game(_starling.root)._hero.playbackSpeed = currentSpeed / baseSpeed;
+				Game(_starling.root).globalSpeed = currentSpeed / baseSpeed;
 				//BouncingBox(_starling.root).speed = currentSpeed / baseSpeed;
 			}
 		}

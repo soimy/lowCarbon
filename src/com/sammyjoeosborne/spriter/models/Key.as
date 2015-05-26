@@ -31,6 +31,8 @@ package com.sammyjoeosborne.spriter.models
 		private var _nextPivotDirty:Boolean = true;
 		private var _prevPivotDirty:Boolean = true;
 		
+		public var fileObject:File;
+		
 		public function Key($id:uint, $time:uint, $spin:int) 
 		{
 			_id = 		$id;
@@ -41,7 +43,7 @@ package com.sammyjoeosborne.spriter.models
 		public function toString():String
 		{
 			return ("id: " + _id + " time: " + _time + " spin: " + _spin + " x: " + _originalTransform.x + " y: " + _originalTransform.y
-				+ " angle: " + _originalTransform.angle + " folder: " + _folder + " file: " + _file);
+				+ " angle: " + _originalTransform.angle + " folder: " + _folder + " file: " + _file+ " nextFileDirty: " + nextFileDirty + " prevFileDirty: " + prevFileDirty);
 		}
 		
 		public function arePropsEqual($key:Key):Boolean 
@@ -75,7 +77,12 @@ package com.sammyjoeosborne.spriter.models
 		public function set angle(value:Number):void {
 			_originalTransform.angle = value;
 		}
-				
+		
+		public function get a():Number { return _originalTransform.a; };
+		public function set a(value:Number):void {
+			_originalTransform.a = value;
+		}
+		
 		public function get scaleX():Number { return _originalTransform.scaleX; }
 		public function set scaleX(value:Number):void {
 			_originalTransform.scaleX = value;
