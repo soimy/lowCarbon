@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:8510570af1dc847b1b6b8fa2d5350405:572ee8d9002f2583d775c137863def25:1355c9eb6fb72feb88476d2199a1af87$ -->
+<!-- $TexturePacker:SmartUpdate:b97765bfdfc9ca00b9a386dca45daa7a:3ac76caeb258c4c7e5236df112c64538:1355c9eb6fb72feb88476d2199a1af87$ -->
 <TextureAtlas imagePath="spritesheet_env.png">
-    <SubTexture name="bg" x="1138" y="1315" rotated="true" width="409" height="540" frameX="0" frameY="-551" frameWidth="540" frameHeight="960"/>
-    <SubTexture name="bg1" x="808" y="609" rotated="true" width="434" height="540" frameX="0" frameY="-31" frameWidth="540" frameHeight="465"/>
+    <SubTexture name="bg" x="664" y="1045" width="540" height="409" frameX="0" frameY="-551" frameWidth="540" frameHeight="960"/>
+    <SubTexture name="bg1" x="664" y="609" width="540" height="434" frameX="0" frameY="-31" frameWidth="540" frameHeight="465"/>
     <SubTexture name="bgtrees" x="6" y="2" rotated="true" width="167" height="540"/>
     <SubTexture name="bikefront" x="178" y="2" width="1079" height="200"/>
-    <SubTexture name="bush01" x="173" y="609" rotated="true" width="223" height="299"/>
-    <SubTexture name="bush02" x="1439" y="804" rotated="true" width="259" height="296"/>
-    <SubTexture name="bush03" x="1549" y="1639" rotated="true" width="330" height="401"/>
-    <SubTexture name="cloud01" x="178" y="1882" width="291" height="162"/>
-    <SubTexture name="cloud02" x="398" y="609" width="400" height="201"/>
-    <SubTexture name="cloud03" x="1244" y="804" rotated="true" width="193" height="400"/>
+    <SubTexture name="bush01" x="178" y="1732" rotated="true" width="223" height="299"/>
+    <SubTexture name="bush02" x="403" y="1732" rotated="true" width="259" height="296"/>
+    <SubTexture name="bush03" x="664" y="1714" width="401" height="330"/>
+    <SubTexture name="cloud01" x="173" y="609" rotated="true" width="162" height="291"/>
+    <SubTexture name="cloud02" x="1562" y="1506" width="400" height="201"/>
+    <SubTexture name="cloud03" x="1562" y="1709" width="400" height="193"/>
     <SubTexture name="fog" x="1905" y="188" rotated="true" width="128" height="256"/>
     <SubTexture name="grass01" x="2" y="1924" width="174" height="120"/>
-    <SubTexture name="grass02" x="1700" y="1029" rotated="true" width="229" height="238"/>
-    <SubTexture name="grass03" x="1439" y="1102" rotated="true" width="229" height="194"/>
+    <SubTexture name="grass02" x="798" y="1456" rotated="true" width="229" height="238"/>
+    <SubTexture name="grass03" x="1029" y="1456" width="194" height="229"/>
     <SubTexture name="grass04" x="1905" y="2" width="133" height="184"/>
-    <SubTexture name="grass05" x="1549" y="1315" width="493" height="322"/>
-    <SubTexture name="line" x="2005" y="446" width="33" height="867"/>
+    <SubTexture name="grass05" x="1067" y="1687" width="493" height="322"/>
+    <SubTexture name="line" x="2005" y="446" width="39" height="200"/>
     <SubTexture name="logo" x="178" y="204" width="1055" height="403"/>
     <SubTexture name="sky" x="2" y="2" width="2" height="1920"/>
     <SubTexture name="tree01" x="1259" y="2" width="644" height="800"/>
-    <SubTexture name="tree02" x="6" y="1315" rotated="true" width="800" height="565"/>
-    <SubTexture name="tree03" x="6" y="930" rotated="true" width="800" height="370"/>
-    <SubTexture name="tree04" x="808" y="1151" width="328" height="800"/>
-    <SubTexture name="treebg01" x="1700" y="804" rotated="true" width="256" height="223"/>
+    <SubTexture name="tree02" x="6" y="930" width="565" height="800"/>
+    <SubTexture name="tree03" x="1206" y="804" rotated="true" width="800" height="370"/>
+    <SubTexture name="tree04" x="1225" y="1176" rotated="true" width="800" height="328"/>
+    <SubTexture name="treebg01" x="573" y="1456" width="223" height="256"/>
     <SubTexture name="treebg02" x="1905" y="446" width="98" height="256"/>
     <SubTexture name="treebg03" x="6" y="544" width="165" height="384"/>
 </TextureAtlas>

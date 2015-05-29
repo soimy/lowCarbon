@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>3.8.0</string>
         <key>fileName</key>
-        <string>C:/Users/sym/Documents/GitHub/lowCarbon_air/assets/hero/hero.tps</string>
+        <string>C:/Users/sym/Documents/GitHub/lowCarbon/assets/hero/hero.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,7 +28,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <false/>
+        <true/>
         <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>sparrow</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../spritesheet_hero.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>

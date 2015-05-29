@@ -45,4 +45,6 @@ Temporary Items
 #project files
 bin
 .p12
+*.rar
+obj
 

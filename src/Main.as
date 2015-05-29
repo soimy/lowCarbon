@@ -4,7 +4,9 @@ package
 	import com.quetwo.Arduino.ArduinoConnector;
 	import com.quetwo.Arduino.ArduinoConnectorEvent;
 	import com.shader.utils.Console;
+	import com.shader.utils.Convert;
 	import com.shader.utils.Stats;
+	import flash.accessibility.Accessibility;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -22,13 +24,14 @@ package
 	import starling.core.StatsDisplay;
 	
 	import starling.core.Starling;
+	import starling.events.Event;
 	
 	/**
 	 * ...
 	 * @author Shen Yiming
 	 */
 	
-	[SWF(width="1080",height="1920",frameRate="60",backgroundColor="#000000")]
+	[SWF(width="1080",height="1920",frameRate="60",backgroundColor="#b1b26c")]
 	
 	public class Main extends Sprite
 	{
@@ -48,7 +51,7 @@ package
 		private var currentWalt:Number;
 		public var _walt:Number;
 		private var speed_lastTime:Number = 0;
-		private var speed_cooldownRate:Number = 3; // speed reduce 3 km/h per second
+		private var speed_cooldownRate:Number = 1; // speed reduce 3 km/h per second
 		
 		// variable for timer coding
 		private var lastTime:Number = 0;
@@ -57,6 +60,7 @@ package
 		
 		// XML Param
 		private var settings:XML;
+		private var inGame_timeout:Number;
 		
 		// Serial Port setup
 		public var serialPort:ArduinoConnector;
@@ -72,8 +76,8 @@ package
 			var settingsLoader:URLLoader = new URLLoader();
 			var xmlFile:File = File.applicationDirectory.resolvePath("settings.xml");
 			settingsLoader.load(new URLRequest(xmlFile.nativePath));
-			settingsLoader.addEventListener(Event.COMPLETE, processXML);
-			this.addEventListener(Event.REMOVED_FROM_STAGE, onExit);
+			settingsLoader.addEventListener(flash.events.Event.COMPLETE, processXML);
+			this.addEventListener(flash.events.Event.REMOVED_FROM_STAGE, onExit);
 			
 			// initialize game variables
 			lastTime = getTimer();
@@ -84,14 +88,14 @@ package
 			//Mouse.hide();
 		}
 		
-		private function onExit(e:Event):void 
+		private function onExit(e:flash.events.Event):void 
 		{
-			removeEventListener(Event.REMOVED_FROM_STAGE, onExit);
+			removeEventListener(flash.events.Event.REMOVED_FROM_STAGE, onExit);
 			serialPort.dispose();
 			console.log("Disabling Serial Port");
 		}
 		
-		private function processXML(e:Event):void
+		private function processXML(e:flash.events.Event):void
 		{
 			settings = new XML(e.target.data);
 			
@@ -101,6 +105,7 @@ package
 			
 			portNo = settings.com[0];
 			bautRate = Number(settings.bautRate[0]);
+			inGame_timeout = Number(settings.timeout);
 			
 			//addEventListener(Event.ENTER_FRAME, onUpdate);
 			init();
@@ -126,11 +131,11 @@ package
 			
 			initSerialPort();
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKey);
-			this.addEventListener(Event.ENTER_FRAME, onUpdate);
+			this.addEventListener(flash.events.Event.ENTER_FRAME, onUpdate);
 			setTimeout(startApp, 100);
 		}
 		
-		private function onUpdate(e:Event):void 
+		private function onUpdate(e:flash.events.Event):void 
 		{
 			// TODO Auto-generated method stub
             var time:Number = getTimer();
@@ -149,13 +154,17 @@ package
             cooldownT = cooldownT > dTimePool[0] ? (cooldownT-dTimePool[0]) : 0;
             if ( currentSpeed > 0 ){
                 currentSpeed -= cooldownT/1000 * speed_cooldownRate;
-                currentSpeed = currentSpeed > baseSpeed ? currentSpeed : baseSpeed;
+                currentSpeed = currentSpeed > 0 ? currentSpeed : 0;
                 //currentWalt = currentSpeed/3.6 * bikeWaltConstant;
             }
 			
 			if(_starling){
-				Game(_starling.root).globalSpeed = currentSpeed / baseSpeed;
+				Game(_starling.root).syncSpeed(currentSpeed / baseSpeed);
 				//BouncingBox(_starling.root).speed = currentSpeed / baseSpeed;
+			}
+			
+			if (currentSpeed > 10 && Game(_starling.root).currentLvl == 0) {
+				Game(_starling.root).changeLevel(1);
 			}
 		}
 		
@@ -167,7 +176,7 @@ package
 			serialPort.addEventListener("socketData", onSerialPortRecieve);
 		}
 		
-		private function onSerialPortRecieve(e:Event):void 
+		private function onSerialPortRecieve(e:flash.events.Event):void 
 		{
 			var bytesAvailable:Number = serialPort.bytesAvailable
 			if ( bytesAvailable > 0 ) { 
@@ -175,7 +184,7 @@ package
 				var tmpChar:String;
 				for (var i:int = 0; i < bytesAvailable; i++) 
 				{
-					tmpChar = uint2hex(serialPort.readByte());
+					tmpChar = Convert.uint2hex(serialPort.readByte());
 					serialData += tmpChar + " ";
 				}
 				console.log("Serial Recieved (" + bytesAvailable+") : " + serialData);
@@ -216,7 +225,7 @@ package
 			if (currentSpeed < baseSpeed)
 				currentSpeed = baseSpeed;
 			//currentWalt = currentSpeed/3.6 * bikeWaltConstant;
-			//console.log("CurrentSpeed: " + currentSpeed);
+			console.log("CurrentSpeed: " + currentSpeed);
 		}
 		
 		public function startApp():void
@@ -224,23 +233,15 @@ package
 			_starling = new Starling(Game, stage);
 			//_starling.showStats = true;
 			_starling.start();
+			_starling.addEventListener(starling.events.Event.ROOT_CREATED, onStarlingInit);
 		}
 		
-		public function uint2hex(dec:uint):String 
+		private function onStarlingInit(e:starling.events.Event):void 
 		{
-			var digits:String = "0123456789ABCDEF";
-			var hex:String = '';
-		 
-			while (dec > 0) {
-				var next:uint = dec & 0xF;
-				dec >>= 4;
-				hex = digits.charAt(next) + hex;
-			}
-			if (hex.length == 0) hex = '0'
-			if (hex.length == 1) hex = "0" + hex;
-			return hex;
+			Game(_starling.root).inGame_timeout = inGame_timeout;
+			trace("Timeout set to : " + inGame_timeout);
 		}
-	
+		
 	}
 
 }

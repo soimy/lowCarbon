@@ -1,7 +1,11 @@
 package 
 {
+	import com.greensock.TweenLite;
 	import com.sammyjoeosborne.spriter.SpriterMCFactory;
+	import events.NavigationEvent;
 	import flash.filesystem.File;
+	import screen.InGame;
+	import screen.Opening;
 	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.events.EnterFrameEvent;
@@ -16,24 +20,30 @@ package
 	 */
 	public class Game extends Sprite 
 	{
-		// Setup SpriterMC
-		public var cloud:SpriterMC;
-		public var treebg:SpriterMC;
-		public var tree:SpriterMC;
-		public var fg:SpriterMC;
-		private var _juggler:Juggler;
+		private var opening:Opening;
+		private var inGame:InGame;
+		public var currentStage:Object;
+		public var currentLvl:uint = 0;
 		public var globalSpeed:Number = 1;
+		public var inGame_timeout:Number = 10000;
 		
 		public function Game() 
 		{
 			super();
 			this.addEventListener(Event.ADDED_TO_STAGE, init);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, destory);
+		}
+		
+		private function destory(e:Event):void 
+		{
+			removeEventListener(Event.REMOVED_FROM_STAGE, destory);
 		}
 		
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			_juggler = new Juggler();
+			
+			addEventListener(NavigationEvent.CHANGE_SCREEN, onChangeLvl); 
 			
 			var bgSky:Quad = new Quad(1080,1300);
 			bgSky.setVertexColor(0, 0x76d6de);
@@ -42,46 +52,75 @@ package
 			bgSky.setVertexColor(3, 0xb1b26c);
 			addChild(bgSky);
 			
-			var bgGround:Image = new Image(Assets.getAtlas("env").getTexture("bg"));
-			bgGround.width *= 2;
-			bgGround.height *= 2;
-			addChild(bgGround);
+			opening = new Opening();
+			opening.globalSpeed = globalSpeed;
+			addChild(opening);
+			currentStage = opening;
+			opening.play();
 			
-			var scmlFile:File = File.applicationDirectory.resolvePath("assets/open_cloud.scml");
-			cloud = SpriterMCFactory.createSpriterMC("cloud", scmlFile.nativePath, Assets.getAtlas("env"), onSpriterReady);
-			cloud.name = "cloud01";
-			cloud.playbackSpeed = 0.01;
-			
-			scmlFile = File.applicationDirectory.resolvePath("assets/open_treebg.scml");
-			treebg = SpriterMCFactory.createSpriterMC("treebg", scmlFile.nativePath, Assets.getAtlas("env"), onSpriterReady);
-			treebg.name = "treebg01";
-			treebg.playbackSpeed = 0.05;
-			
-			this.addChild(cloud);
-			this.addChild(treebg);
-			_juggler.add(cloud);
-			_juggler.add(treebg);
-			cloud.play();
-			treebg.play();
-			
-			addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
+			inGame = new InGame();
+			//inGame.globalSpeed = globalSpeed;
+			//inGame.timeOut = inGame_timeout;
+			inGame.visible = false;
+			//addChild(inGame);
 		}
+
 		
-		private function onSpriterReady(e:Event):void 
+		public function syncSpeed(_speed:Number):void 
 		{
-			var spriterMC:SpriterMC = e.target as SpriterMC;
-			trace("SpriterMC Ready : " + spriterMC.spriterName);
-			//spriterMC.width *= 0.5;
-			//spriterMC.height *= 0.5;
-			//spriterMC.x = 0;
-			//spriterMC.y = 0;
+			globalSpeed = _speed;
+			currentStage.globalSpeed = _speed;
 		}
-		
-		private function onEnterFrame(e:EnterFrameEvent):void 
+				
+		private function onChangeLvl(e:NavigationEvent):void 
 		{
-			_juggler.advanceTime(e.passedTime * globalSpeed);
+			changeLevel(e.params.lvl);
 		}
 		
+		public function changeLevel(_lvl:uint):void 
+		{
+			if (currentLvl == _lvl) return;
+			
+			var nextLvl:Object;
+			currentLvl = _lvl;
+			switch (_lvl) 
+			{
+				case 0:
+					nextLvl = opening;
+					inGame.stop();
+					break;
+				case 1:
+					nextLvl = inGame;
+					opening.stop();
+					inGame.timeOut = inGame_timeout;
+					break;
+				case 2:
+				default:
+			}
+			TweenLite.to(currentStage, 1, { y:stage.stageHeight, onComplete:onChangeLvlTweened, onCompleteParams:[nextLvl] } );
+		}
+		
+		private function onChangeLvlTweened(_nextLvl:Object):void 
+		{
+			removeChild(currentStage as Sprite);
+			currentStage.visible = false;
+			addChild(_nextLvl as Sprite);
+			currentStage = _nextLvl;
+			currentStage.visible = true;
+			//currentStage.alpha = 0;
+			currentStage.y = stage.stageHeight;
+			TweenLite.to(currentStage, 1, 
+				{ 
+					y:0,
+					//alpha:1,
+					onComplete:function ():void
+					{
+						currentStage.play();
+					}
+				} 
+			);
+			//currentStage.play();
+		}
 	}
 
 }

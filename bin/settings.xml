@@ -5,5 +5,5 @@
 	<isDiag>true</isDiag>
     <sampleRate>200</sampleRate>
     <wheelLength>3</wheelLength>
-	<timeout>20000</timeout>
+	<timeout>5000</timeout>
 </settings>
