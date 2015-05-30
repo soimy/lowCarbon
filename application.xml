@@ -21,8 +21,11 @@
 	More options:
 	http://livedocs.adobe.com/flex/3/html/File_formats_1.html#1043413
 	-->
-  <supportedProfiles>desktop</supportedProfiles>
   <android>
     <manifestAdditions><![CDATA[<manifest android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" />]]></manifestAdditions>
   </android>
+  <supportedProfiles>extendedDesktop</supportedProfiles>
+  <extensions>
+    <extensionID>com.quetwo.Arduino.ArduinoConnector</extensionID>
+  </extensions>
 </application>
