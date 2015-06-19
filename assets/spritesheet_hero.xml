@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:2f43ef991b5b60fd31a8f367bd1fd6af:bfdd815700e3ea2d45288dabaeb18233:1d475b18c88e0123c1d63de1987e3929$ -->
 <TextureAtlas imagePath="spritesheet_hero.png">
-    <SubTexture name="bike" x="2" y="2" width="918" height="533"/>
-    <SubTexture name="body" x="2" y="609" width="557" height="512"/>
-    <SubTexture name="cal" x="372" y="1457" rotated="true" width="106" height="161"/>
-    <SubTexture name="co2" x="938" y="1281" rotated="true" width="80" height="113"/>
-    <SubTexture name="finalscore01" x="2" y="1274" width="485" height="181" frameX="-13" frameY="-19" frameWidth="500" frameHeight="200"/>
-    <SubTexture name="finalscore02" x="2" y="1123" width="491" height="149" frameX="-9" frameY="-34" frameWidth="500" frameHeight="200"/>
-    <SubTexture name="footL" x="922" y="2" rotated="true" width="99" height="149"/>
-    <SubTexture name="footR" x="862" y="542" rotated="true" width="152" height="125"/>
-    <SubTexture name="icn_dist" x="922" y="153" rotated="true" width="99" height="133"/>
-    <SubTexture name="icn_score01" x="495" y="1202" width="221" height="150" frameX="-19" frameY="-53" frameWidth="256" frameHeight="256"/>
-    <SubTexture name="icn_score02" x="794" y="1128" width="228" height="151" frameX="-14" frameY="-52" frameWidth="256" frameHeight="256"/>
-    <SubTexture name="icn_score03" x="489" y="1354" width="193" height="112" frameX="-30" frameY="-71" frameWidth="256" frameHeight="256"/>
-    <SubTexture name="icn_score04" x="718" y="1281" width="218" height="143" frameX="-18" frameY="-56" frameWidth="256" frameHeight="256"/>
-    <SubTexture name="icn_time" x="2" y="1578" rotated="true" width="131" height="124"/>
-    <SubTexture name="km" x="480" y="1468" width="171" height="104"/>
-    <SubTexture name="legL" x="561" y="609" width="272" height="226"/>
-    <SubTexture name="legR" x="684" y="1426" width="335" height="112"/>
-    <SubTexture name="llegL" x="922" y="288" width="82" height="252"/>
-    <SubTexture name="llegR" x="561" y="1053" rotated="true" width="231" height="147"/>
-    <SubTexture name="shadow" x="2" y="537" width="858" height="70"/>
-    <SubTexture name="speed01" x="561" y="837" rotated="true" width="245" height="214"/>
-    <SubTexture name="speed02" x="808" y="911" width="196" height="215" frameX="0" frameY="-14" frameWidth="214" frameHeight="245"/>
-    <SubTexture name="tips01" x="835" y="669" width="183" height="119"/>
-    <SubTexture name="tips02" x="835" y="790" width="183" height="119"/>
-    <SubTexture name="tips03" x="2" y="1457" width="183" height="119"/>
-    <SubTexture name="tips04" x="187" y="1457" width="183" height="119"/>
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="bike"	x="0"	y="0"	width="918"	height="533" frameX="-0" frameY="-0" frameWidth="918" frameHeight="533"/>
+	<SubTexture name="bikeicon"	x="114"	y="937"	width="26"	height="20" frameX="-3" frameY="-9" frameWidth="32" frameHeight="32"/>
+	<SubTexture name="body"	x="919"	y="0"	width="557"	height="512" frameX="-0" frameY="-0" frameWidth="557" frameHeight="512"/>
+	<SubTexture name="cal"	x="1529"	y="759"	width="161"	height="106" frameX="-0" frameY="-0" frameWidth="161" frameHeight="106"/>
+	<SubTexture name="co2"	x="0"	y="937"	width="113"	height="80" frameX="-0" frameY="-0" frameWidth="113" frameHeight="80"/>
+	<SubTexture name="finalscore01"	x="0"	y="755"	width="485"	height="181" frameX="-13" frameY="-19" frameWidth="500" frameHeight="200"/>
+	<SubTexture name="finalscore02"	x="0"	y="605"	width="491"	height="149" frameX="-9" frameY="-34" frameWidth="500" frameHeight="200"/>
+	<SubTexture name="footL"	x="1529"	y="866"	width="149"	height="99" frameX="-0" frameY="-0" frameWidth="149" frameHeight="99"/>
+	<SubTexture name="footR"	x="1661"	y="0"	width="125"	height="152" frameX="-0" frameY="-0" frameWidth="125" frameHeight="152"/>
+	<SubTexture name="icn_dist"	x="1649"	y="360"	width="133"	height="99" frameX="-0" frameY="-0" frameWidth="133" frameHeight="99"/>
+	<SubTexture name="icn_score01"	x="715"	y="868"	width="221"	height="150" frameX="-19" frameY="-53" frameWidth="256" frameHeight="256"/>
+	<SubTexture name="icn_score02"	x="486"	y="868"	width="228"	height="151" frameX="-14" frameY="-52" frameWidth="256" frameHeight="256"/>
+	<SubTexture name="icn_score03"	x="937"	y="832"	width="193"	height="112" frameX="-30" frameY="-71" frameWidth="256" frameHeight="256"/>
+	<SubTexture name="icn_score04"	x="492"	y="605"	width="218"	height="143" frameX="-18" frameY="-56" frameWidth="256" frameHeight="256"/>
+	<SubTexture name="icn_time"	x="1661"	y="153"	width="124"	height="131" frameX="-0" frameY="-0" frameWidth="124" frameHeight="131"/>
+	<SubTexture name="km"	x="1477"	y="360"	width="171"	height="104" frameX="-0" frameY="-0" frameWidth="171" frameHeight="104"/>
+	<SubTexture name="legL"	x="822"	y="605"	width="272"	height="226" frameX="-0" frameY="-0" frameWidth="272" frameHeight="226"/>
+	<SubTexture name="legR"	x="486"	y="755"	width="335"	height="112" frameX="-0" frameY="-0" frameWidth="335" frameHeight="112"/>
+	<SubTexture name="llegL"	x="1691"	y="697"	width="82"	height="252" frameX="-0" frameY="-0" frameWidth="82" frameHeight="252"/>
+	<SubTexture name="llegR"	x="1547"	y="465"	width="147"	height="231" frameX="-0" frameY="-0" frameWidth="147" frameHeight="231"/>
+	<SubTexture name="minimap"	x="1095"	y="513"	width="236"	height="318" frameX="-2" frameY="-1" frameWidth="240" frameHeight="320"/>
+	<SubTexture name="shadow"	x="0"	y="534"	width="858"	height="70" frameX="-0" frameY="-0" frameWidth="858" frameHeight="70"/>
+	<SubTexture name="speed01"	x="1332"	y="513"	width="214"	height="245" frameX="-0" frameY="-0" frameWidth="214" frameHeight="245"/>
+	<SubTexture name="speed02"	x="1332"	y="759"	width="196"	height="215" frameX="-0" frameY="-14" frameWidth="214" frameHeight="245"/>
+	<SubTexture name="tips01"	x="1477"	y="120"	width="183"	height="119" frameX="-0" frameY="-0" frameWidth="183" frameHeight="119"/>
+	<SubTexture name="tips02"	x="1477"	y="0"	width="183"	height="119" frameX="-0" frameY="-0" frameWidth="183" frameHeight="119"/>
+	<SubTexture name="tips03"	x="1131"	y="832"	width="183"	height="119" frameX="-0" frameY="-0" frameWidth="183" frameHeight="119"/>
+	<SubTexture name="tips04"	x="1477"	y="240"	width="183"	height="119" frameX="-0" frameY="-0" frameWidth="183" frameHeight="119"/>
 </TextureAtlas>
