@@ -151,6 +151,11 @@ package screen
 			}
 		}
 		
+		public function reset():void 
+		{
+				_total_dist = _total_time = 0;
+		}
+		
 		public function set globalSpeed(value:Number):void 
 		{
 			var cT:Number = new Date().getTime();

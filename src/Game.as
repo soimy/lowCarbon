@@ -93,6 +93,7 @@ package
 					nextLvl = inGame;
 					opening.stop();
 					inGame.timeOut = inGame_timeout;
+					inGame.reset();
 					break;
 				case 2:
 				default:

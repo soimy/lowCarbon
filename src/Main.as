@@ -15,6 +15,7 @@ package
 	import flash.filesystem.File;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.ui.Mouse;
 	import flash.utils.ByteArray;
 	import flash.utils.setTimeout;
 	import flash.utils.getTimer;
@@ -86,6 +87,7 @@ package
 			//currentStage = 0;
 			_walt = 0;
 			//Mouse.hide();
+			Mouse.hide();
 		}
 		
 		private function onExit(e:flash.events.Event):void 
