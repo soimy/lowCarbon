@@ -87,7 +87,7 @@ package screen
 			addChild(_hud_time);
 			
 			_hud_score = new Score();
-			_hud_score.y = -650;
+			_hud_score.y = -570;
 			addChild(_hud_score);
 			
 		}
@@ -144,7 +144,7 @@ package screen
 			_plants.globalSpeed = _globalSpeed;
 			_clouds.globalSpeed = _globalSpeed;
 				
-			if (_globalSpeed == 0 && _hud_score.y == -650) {
+			if (_globalSpeed == 0 && _hud_score.y == -570) {
 				_hud_score.show();
 				_timeOut_start = cT;
 				this.stop();
