@@ -152,6 +152,15 @@ package com.sammyjoeosborne.spriter
 			updateVisuals();
 		}
 		
+		public function gotoTime($percent:Number):void 
+		{
+			if (!_isPlaying || !_spriterMC.isReady) return;
+			
+			_currentTime = totalTime * $percent;
+			//trace(_currentTime);
+			updateVisuals();
+		}
+		
 		public function getNextFrame():MainKey
 		{
 			//if playing forward

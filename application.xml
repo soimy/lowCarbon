@@ -14,8 +14,8 @@
     <maximizable>false</maximizable>
     <resizable>false</resizable>
     <renderMode>direct</renderMode>
-    <x>0</x>
-    <y>0</y>
+    <x>-1200</x>
+    <y>-1152</y>
   </initialWindow>
   <!-- 
 	More options:

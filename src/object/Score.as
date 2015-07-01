@@ -73,9 +73,9 @@ package object
 				
 				var tips:Image = new Image(Assets.getAtlas("hero").getTexture("tips0" + (i + 1)));
 				tips.x = margin + space * i - tips.width * 0.5;
-				tips.y = 570;
+				tips.y = 580;
 				addChild(tips);
-				tips.visible = false;
+				tips.visible = true;
 				_score_tips.push(tips);
 				
 				var score:Hud = new Hud(Assets.getAtlas("hero").getTexture("co2"), Hud.POSITION_RIGHT);
@@ -114,10 +114,10 @@ package object
 		{
 			TweenLite.to(this, 0.5, 
 				{ 
-					y: -650, 
+					y: -570, 
 					onComplete:function ():void 
 					{
-						toggleTips(false);
+						//toggleTips(false);
 					}
 				}
 			);
@@ -130,7 +130,7 @@ package object
 					y: 300, 
 					onComplete:function ():void 
 					{
-						toggleTips(true);
+						//toggleTips(true);
 					},
 					ease: Back.easeOut
 				}

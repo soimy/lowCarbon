@@ -1,13 +1,18 @@
 package screen 
 {
+	import com.sammyjoeosborne.spriter.Animation;
+	import com.sammyjoeosborne.spriter.SpriterMC;
+	import com.sammyjoeosborne.spriter.SpriterMCFactory;
 	import com.shader.utils.Convert;
 	import events.NavigationEvent;
+	import flash.filesystem.File;
 	import object.Hud;
 	import object.MovingEnv;
 	import object.Score;
 	import starling.animation.Juggler;
 	import starling.display.Image;
 	import starling.display.Sprite;
+	import starling.events.EnterFrameEvent;
 	import starling.events.Event;
 	
 	/**
@@ -31,6 +36,9 @@ package screen
 		
 		private var _timeOut:Number = 30000;
 		private var _timeOut_start:Number = 0;
+		
+		private var minimap:SpriterMC;
+		private var lap:Number = 5;
 		
 		public function InGame() 
 		{
@@ -87,9 +95,30 @@ package screen
 			addChild(_hud_time);
 			
 			_hud_score = new Score();
-			_hud_score.y = -650;
+			_hud_score.y = -570;
 			addChild(_hud_score);
+						
+			var scmlFile:File = File.applicationDirectory.resolvePath("assets/minimap.scml");
+			minimap = SpriterMCFactory.createSpriterMC("minimap", scmlFile.nativePath, Assets.getAtlas("hero"));
+			minimap.name = "minimap01";
+			minimap.playbackSpeed = 1;
+			addChild(minimap);
+			minimap.x = 30;
+			minimap.y = 1550;
+			//_juggler.add(minimap);
+			minimap.play();
 			
+			addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
+			
+			_total_dist = _total_time = 0;
+		}
+		
+		private function onEnterFrame(e:EnterFrameEvent):void 
+		{
+			//var dtime:Number = e.passedTime * _globalSpeed ;
+			//_juggler.advanceTime(dtime);
+			var animation:Animation = minimap.currentAnimation;
+			animation.gotoTime(_total_dist % lap / lap);
 		}
 		
 		
@@ -117,9 +146,14 @@ package screen
 			if (_isPlaying) {
 				_plants.stop();
 				_clouds.stop();
-				_total_dist = _total_time = 0;
+				//_total_dist = _total_time = 0;
 				_isPlaying = false;
 			}
+		}
+		
+		public function reset():void 
+		{
+				_total_dist = _total_time = 0;
 		}
 		
 		public function set globalSpeed(value:Number):void 
@@ -144,7 +178,7 @@ package screen
 			_plants.globalSpeed = _globalSpeed;
 			_clouds.globalSpeed = _globalSpeed;
 				
-			if (_globalSpeed == 0 && _hud_score.y == -650) {
+			if (_globalSpeed == 0 && _hud_score.y == -570) {
 				_hud_score.show();
 				_timeOut_start = cT;
 				this.stop();
