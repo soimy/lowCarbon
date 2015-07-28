@@ -28,6 +28,8 @@ package object
 			spritePool[2] = ["bush01", "bush02", "bush03"];
 			spritePool[3] = ["grass01", "grass02", "grass03", "grass04", "grass05"];
 			spritePool[4] = ["line"];
+			spritePool[5] = ["tree05", "tree06", "tree07", "tree08", "tree09"];
+			spritePool[6] = ["bush04", "bush05", "bush06", "bush07"];
 			
 			_typ = typ;
 			_id = Math.random() * spritePool[_typ].length;

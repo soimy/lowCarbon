@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
-<!-- $TexturePacker:SmartUpdate:b97765bfdfc9ca00b9a386dca45daa7a:3ac76caeb258c4c7e5236df112c64538:1355c9eb6fb72feb88476d2199a1af87$ -->
 <TextureAtlas imagePath="spritesheet_env.png">
-    <SubTexture name="bg" x="664" y="1045" width="540" height="409" frameX="0" frameY="-551" frameWidth="540" frameHeight="960"/>
-    <SubTexture name="bg1" x="664" y="609" width="540" height="434" frameX="0" frameY="-31" frameWidth="540" frameHeight="465"/>
-    <SubTexture name="bgtrees" x="6" y="2" rotated="true" width="167" height="540"/>
-    <SubTexture name="bikefront" x="178" y="2" width="1079" height="200"/>
-    <SubTexture name="bush01" x="178" y="1732" rotated="true" width="223" height="299"/>
-    <SubTexture name="bush02" x="403" y="1732" rotated="true" width="259" height="296"/>
-    <SubTexture name="bush03" x="664" y="1714" width="401" height="330"/>
-    <SubTexture name="cloud01" x="173" y="609" rotated="true" width="162" height="291"/>
-    <SubTexture name="cloud02" x="1562" y="1506" width="400" height="201"/>
-    <SubTexture name="cloud03" x="1562" y="1709" width="400" height="193"/>
-    <SubTexture name="fog" x="1905" y="188" rotated="true" width="128" height="256"/>
-    <SubTexture name="grass01" x="2" y="1924" width="174" height="120"/>
-    <SubTexture name="grass02" x="798" y="1456" rotated="true" width="229" height="238"/>
-    <SubTexture name="grass03" x="1029" y="1456" width="194" height="229"/>
-    <SubTexture name="grass04" x="1905" y="2" width="133" height="184"/>
-    <SubTexture name="grass05" x="1067" y="1687" width="493" height="322"/>
-    <SubTexture name="line" x="2005" y="446" width="39" height="200"/>
-    <SubTexture name="logo" x="178" y="204" width="1055" height="403"/>
-    <SubTexture name="sky" x="2" y="2" width="2" height="1920"/>
-    <SubTexture name="tree01" x="1259" y="2" width="644" height="800"/>
-    <SubTexture name="tree02" x="6" y="930" width="565" height="800"/>
-    <SubTexture name="tree03" x="1206" y="804" rotated="true" width="800" height="370"/>
-    <SubTexture name="tree04" x="1225" y="1176" rotated="true" width="800" height="328"/>
-    <SubTexture name="treebg01" x="573" y="1456" width="223" height="256"/>
-    <SubTexture name="treebg02" x="1905" y="446" width="98" height="256"/>
-    <SubTexture name="treebg03" x="6" y="544" width="165" height="384"/>
+	<!--
+	Created with ShoeBox
+	http://renderhjs.net/shoebox/
+	-->
+	<SubTexture name="bg"	x="0"	y="1040"	width="540"	height="409" frameX="-0" frameY="-551" frameWidth="540" frameHeight="960"/>
+	<SubTexture name="bg1"	x="0"	y="605"	width="540"	height="434" frameX="-0" frameY="-31" frameWidth="540" frameHeight="465"/>
+	<SubTexture name="bgtrees"	x="0"	y="1450"	width="540"	height="167" frameX="-0" frameY="-0" frameWidth="540" frameHeight="167"/>
+	<SubTexture name="bikefront"	x="0"	y="0"	width="1079"	height="200" frameX="-0" frameY="-0" frameWidth="1079" frameHeight="200"/>
+	<SubTexture name="bush01"	x="864"	y="1001"	width="299"	height="223" frameX="-0" frameY="-0" frameWidth="299" frameHeight="223"/>
+	<SubTexture name="bush02"	x="864"	y="1225"	width="296"	height="259" frameX="-0" frameY="-0" frameWidth="296" frameHeight="259"/>
+	<SubTexture name="bush03"	x="494"	y="1618"	width="401"	height="330" frameX="-0" frameY="-0" frameWidth="401" frameHeight="330"/>
+	<SubTexture name="bush04"	x="1161"	y="1225"	width="239"	height="256" frameX="-0" frameY="-0" frameWidth="239" frameHeight="256"/>
+	<SubTexture name="bush05"	x="942"	y="605"	width="256"	height="172" frameX="-0" frameY="-0" frameWidth="256" frameHeight="172"/>
+	<SubTexture name="bush06"	x="942"	y="778"	width="256"	height="190" frameX="-0" frameY="-0" frameWidth="256" frameHeight="190"/>
+	<SubTexture name="bush07"	x="896"	y="1886"	width="256"	height="134" frameX="-0" frameY="-0" frameWidth="256" frameHeight="134"/>
+	<SubTexture name="cloud01"	x="541"	y="1402"	width="291"	height="162" frameX="-0" frameY="-0" frameWidth="291" frameHeight="162"/>
+	<SubTexture name="cloud02"	x="541"	y="605"	width="400"	height="201" frameX="-0" frameY="-0" frameWidth="400" frameHeight="201"/>
+	<SubTexture name="cloud03"	x="541"	y="807"	width="400"	height="193" frameX="-0" frameY="-0" frameWidth="400" frameHeight="193"/>
+	<SubTexture name="fog"	x="1080"	y="0"	width="256"	height="128" frameX="-0" frameY="-0" frameWidth="256" frameHeight="128"/>
+	<SubTexture name="grass01"	x="1337"	y="0"	width="174"	height="120" frameX="-0" frameY="-0" frameWidth="174" frameHeight="120"/>
+	<SubTexture name="grass02"	x="1164"	y="969"	width="238"	height="229" frameX="-0" frameY="-0" frameWidth="238" frameHeight="229"/>
+	<SubTexture name="grass03"	x="1180"	y="1739"	width="194"	height="229" frameX="-0" frameY="-0" frameWidth="194" frameHeight="229"/>
+	<SubTexture name="grass04"	x="1375"	y="1790"	width="133"	height="184" frameX="-0" frameY="-0" frameWidth="133" frameHeight="184"/>
+	<SubTexture name="grass05"	x="0"	y="1618"	width="493"	height="322" frameX="-0" frameY="-0" frameWidth="493" frameHeight="322"/>
+	<SubTexture name="line"	x="1509"	y="1835"	width="39"	height="200" frameX="-0" frameY="-0" frameWidth="39" frameHeight="200"/>
+	<SubTexture name="logo"	x="0"	y="201"	width="1055"	height="403" frameX="-0" frameY="-0" frameWidth="1055" frameHeight="403"/>
+	<SubTexture name="sky"	x="1718"	y="0"	width="2"	height="1920" frameX="-0" frameY="-0" frameWidth="2" frameHeight="1920"/>
+	<SubTexture name="tree01"	x="541"	y="1001"	width="322"	height="400" frameX="-0" frameY="-0" frameWidth="322" frameHeight="400"/>
+	<SubTexture name="tree02"	x="896"	y="1485"	width="283"	height="400" frameX="-0" frameY="-0" frameWidth="283" frameHeight="400"/>
+	<SubTexture name="tree03"	x="1403"	y="1033"	width="185"	height="400" frameX="-0" frameY="-0" frameWidth="185" frameHeight="400"/>
+	<SubTexture name="tree04"	x="1328"	y="129"	width="210"	height="512" frameX="-0" frameY="-0" frameWidth="210" frameHeight="512"/>
+	<SubTexture name="tree05"	x="1056"	y="201"	width="271"	height="398" frameX="-0" frameY="-0" frameWidth="271" frameHeight="398"/>
+	<SubTexture name="tree06"	x="1403"	y="642"	width="189"	height="390" frameX="-0" frameY="-0" frameWidth="189" frameHeight="390"/>
+	<SubTexture name="tree07"	x="1404"	y="1434"	width="178"	height="355" frameX="-0" frameY="-0" frameWidth="178" frameHeight="355"/>
+	<SubTexture name="tree08"	x="1583"	y="1434"	width="134"	height="400" frameX="-0" frameY="-0" frameWidth="134" frameHeight="400"/>
+	<SubTexture name="tree09"	x="1199"	y="642"	width="180"	height="265" frameX="-0" frameY="-0" frameWidth="180" frameHeight="265"/>
+	<SubTexture name="treebg01"	x="1180"	y="1482"	width="223"	height="256" frameX="-0" frameY="-0" frameWidth="223" frameHeight="256"/>
+	<SubTexture name="treebg02"	x="1539"	y="385"	width="98"	height="256" frameX="-0" frameY="-0" frameWidth="98" frameHeight="256"/>
+	<SubTexture name="treebg03"	x="1539"	y="0"	width="165"	height="384" frameX="-0" frameY="-0" frameWidth="165" frameHeight="384"/>
 </TextureAtlas>
