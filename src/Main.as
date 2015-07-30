@@ -13,6 +13,8 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.filesystem.File;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.ui.Mouse;
@@ -135,6 +137,7 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_UP, onKey);
 			this.addEventListener(flash.events.Event.ENTER_FRAME, onUpdate);
 			setTimeout(startApp, 100);
+			bgm();
 		}
 		
 		private function onUpdate(e:flash.events.Event):void 
@@ -242,6 +245,14 @@ package
 		{
 			Game(_starling.root).inGame_timeout = inGame_timeout;
 			trace("Timeout set to : " + inGame_timeout);
+		}
+		
+		private function bgm():void 
+		{
+			var mySound:Sound = new Sound();
+			var myChannel:SoundChannel = new SoundChannel();
+			mySound.load(new URLRequest("assets/bgm.mp3"));
+			myChannel = mySound.play(0, int.MAX_VALUE);
 		}
 		
 	}

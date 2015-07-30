@@ -23,7 +23,8 @@ package screen
 	{
 		private var _globalSpeed:Number = 1;
 		private var _juggler:Juggler;
-		private var _plants:MovingEnv;
+		private var _env:Vector.<MovingEnv>;
+		private var _current_env:uint = 0;
 		private var _clouds:MovingEnv;
 		private var _hud_dist:Hud;
 		private var _hud_time:Hud;
@@ -38,7 +39,7 @@ package screen
 		private var _timeOut_start:Number = 0;
 		
 		private var minimap:SpriterMC;
-		private var lap:Number = 5;
+		private var lap:Number = 3;
 		
 		public function InGame() 
 		{
@@ -52,10 +53,11 @@ package screen
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			_juggler = new Juggler();
 			
-			_clouds = new MovingEnv(new Array(8, -2000));
+			_clouds = new MovingEnv(new Array(8, -2000)); // only cloud
 			_clouds.farClipPlane = 15000;
 			//_clouds.nearClipPlane = 0;
 			addChild(_clouds);
+			_clouds.addToScene();
 			
 			var bgTree:Image = new Image(Assets.getAtlas("env").getTexture("bgtrees"));
 			bgTree.width *= 2;
@@ -75,8 +77,38 @@ package screen
 			bgFog.y = 800;
 			addChild(bgFog);
 			
-			_plants = new MovingEnv(new Array(0, 0, 60, 1300, 60, 1300, 100, 1300, 10, 1300));
-			addChild(_plants);
+			_env = new Vector.<MovingEnv>();
+			_env.push(new MovingEnv(new Array(
+				0, 0, // cloud
+				60, 1300, // green tree
+				60, 1300, // bush scene1
+				100, 1300, // grass
+				10, 1300, // line
+				0, 0, // red tree
+				0, 0, // other bush
+				1, 1301 // startline
+				)));
+			_env.push(new MovingEnv(new Array(
+				0, 0, // cloud (amount, heigh in y)
+				0, 0, // green tree
+				20, 1300, //bush scene1
+				100, 1300, // grass
+				10, 1300, // line
+				60, 1300, // red tree
+				30, 1300 // Other bush
+				)));
+			_env.push(new MovingEnv(new Array(
+				0, 0, // cloud (amount, heigh in y)
+				5, 1300, // green tree
+				60, 1300, //bush scene1
+				100, 1300, // grass
+				10, 1300, // line
+				5, 1300, // red tree
+				60, 1300 // Other bush
+				)));
+			for(var tmp_env:MovingEnv in _env)
+				addChild(tmp_env);
+			_env[_current_env].addToScene();
 			
 			var bike:Image = new Image(Assets.getAtlas("env").getTexture("bikefront"));
 			addChild(bike);
@@ -119,6 +151,13 @@ package screen
 			//_juggler.advanceTime(dtime);
 			var animation:Animation = minimap.currentAnimation;
 			animation.gotoTime(_total_dist % lap / lap);
+			
+			var scene_dist = lap / _env.length;
+			if (_current_env != Math.floor(_total_dist % lap / scene_dist)) {
+				_env[_current_env].stop();
+				_current_env = (_current_env + 1) % _env.length;
+				_env[_current_env].play();
+			}
 		}
 		
 		
@@ -132,7 +171,7 @@ package screen
 		public function play():void 
 		{
 			if (!_isPlaying) {
-				_plants.play();
+				_env[_current_env].play();
 				_clouds.play();
 				_time_last = _time_start = new Date().getTime();
 				_isPlaying = true;
@@ -144,7 +183,7 @@ package screen
 		public function stop():void 
 		{
 			if (_isPlaying) {
-				_plants.stop();
+				_env[_current_env].stop();
 				_clouds.stop();
 				//_total_dist = _total_time = 0;
 				_isPlaying = false;
@@ -175,7 +214,7 @@ package screen
 			
 			// sync sprite speed
 			_globalSpeed = value;
-			_plants.globalSpeed = _globalSpeed;
+			_env[_current_env].globalSpeed = _globalSpeed;
 			_clouds.globalSpeed = _globalSpeed;
 				
 			if (_globalSpeed == 0 && _hud_score.y == -570) {

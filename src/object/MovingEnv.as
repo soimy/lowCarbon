@@ -54,10 +54,7 @@ package object
 			
 			_particles.sort(orderZ);
 			
-			for (var i:int = 0; i < _particles.length; i++) 
-			{
-				addChild(_particles[i]);
-			}
+			
 		}
 		
 		private function orderZ(a:Particle, b:Particle):Number 
@@ -65,52 +62,77 @@ package object
 			return a.z > b.z ? -1 : 1;
 		}
 		
-		private function generateParticles(typ:uint, _num:uint, height:int):void 
+		private function generateParticles(typ:uint, _num:uint, height:int, near=_nearClipPlane, far=_farClipPlane):void 
 		{
 			var particle:Particle;
 			var num:uint = _num;
 			while( num > 0 ) 
 			{
 				particle = new Particle(typ);
-				particle.z = Interp.remap(_nearClipPlane, _farClipPlane, Math.random());
+				particle.z = Interp.remap(near, far, Math.random());
 				particle.y = height;
 				switch (typ) 
 				{
-					case 0:
+					case 0: // cloud
 						particle.width *= 6;
 						particle.height *= 6;
 						particle.x = Interp.remap(-540, 1620, Math.random());
 						//particle.y = 200;
 						break;
-					case 1:
-						particle.width *= 1.5;
-						particle.height *= 1.5;
+					case 1: // tree of scene1
+						particle.width *= 3;
+						particle.height *= 3;
 						particle.x = Math.random() > 0.5 ? Interp.remap(-1000, 200, Math.random()) : Interp.remap(880, 2080, Math.random());
 						//particle.y = 1300;
 						break;
-					case 2:
+					case 2: // bush of scene1
 						particle.width *= 0.75;
 						particle.height *= 0.75;
 						particle.x = Math.random() > 0.5 ? Interp.remap(-500, 250, Math.random()) : Interp.remap(830, 1580, Math.random());
 						//particle.y = 1300;
 						break;
-					case 3:
+					case 3: // grass
 						particle.width *= 0.25;
 						particle.height *= 0.25;
 						particle.x = Math.random() > 0.5 ? Interp.remap(-100, 250, Math.random()) : Interp.remap(830, 1180, Math.random());
 						//particle.y = 1300;
 						break;
-					case 4:
+					case 4: // road line
 						particle.x = 540;
 						particle.width *= 0.75;
 						particle.height *= 2;
 						particle.rotationX = Math.PI * 0.5;
-						particle.z = Interp.remap(_nearClipPlane, _farClipPlane, num / _num);
+						particle.z = Interp.remap(near, far, num / _num);
 						break;
+					case 5: // tree of scene2
+						particle.width *= 3;
+						particle.height *= 3;
+						particle.x = Math.random() > 0.5 ? Interp.remap(-1000, 200, Math.random()) : Interp.remap(880, 2080, Math.random());
+						break;
+					case 6: // bush of scene2
+						particle.width *= 0.75;
+						particle.height *= 0.75;
+						particle.x = Math.random() > 0.5 ? Interp.remap(-500, 250, Math.random()) : Interp.remap(830, 1580, Math.random());
+						//particle.y = 1300;
+						break;
+					case 7: // start line
+						particle.x = 540;
+						particle.width *= 2;
+						particle.height *= 2;
+						particle.rotationX = Math.PI * 0.5;
+						particle.z = near + 20;
 					default:
 				}
 				num--;
 				_particles.push(particle);
+			}
+		}
+		
+		public function addToScene():void 
+		{
+			for (var i:int = 0; i < _particles.length; i++) 
+			{
+				addChild(_particles[i]);
 			}
 		}
 		
@@ -125,7 +147,6 @@ package object
 		public function stop():void 
 		{
 			if (_isPlaying) {
-				this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onUpdate);
 				_isPlaying = false;
 			}
 		}
@@ -151,10 +172,17 @@ package object
 			for (var i:int = 0; i < _particles.length; i++) 
 			{
 				if (_particles[i].z < _nearClipPlane) {
-					this.removeChild(_particles[i]);
 					_particles[i].z += _farClipPlane - _nearClipPlane;
-					this.addChildAt(_particles[i], 0);
-					TweenLite.from(_particles[i], 0.5, { alpha:0 } );
+					
+					if (_isPlaying){
+						this.addChild(_particles[i], 0);
+						TweenLite.from(_particles[i], 0.5, { alpha:0 } );
+					}
+					else{
+						this.removeChild(_particles[i]);
+						if (i == _particles.length - 1)
+							this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onUpdate);
+					}
 				}
 			}
 		}
