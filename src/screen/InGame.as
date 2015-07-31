@@ -106,8 +106,8 @@ package screen
 				5, 1300, // red tree
 				60, 1300 // Other bush
 				)));
-			for(var tmp_env:MovingEnv in _env)
-				addChild(tmp_env);
+			for (var i:uint = 0; i < _env.length; i++ )
+				addChild(_env[i]);
 			_env[_current_env].addToScene();
 			
 			var bike:Image = new Image(Assets.getAtlas("env").getTexture("bikefront"));
@@ -152,7 +152,7 @@ package screen
 			var animation:Animation = minimap.currentAnimation;
 			animation.gotoTime(_total_dist % lap / lap);
 			
-			var scene_dist = lap / _env.length;
+			var scene_dist:Number = lap / _env.length;
 			if (_current_env != Math.floor(_total_dist % lap / scene_dist)) {
 				_env[_current_env].stop();
 				_current_env = (_current_env + 1) % _env.length;

@@ -62,14 +62,14 @@ package object
 			return a.z > b.z ? -1 : 1;
 		}
 		
-		private function generateParticles(typ:uint, _num:uint, height:int, near=_nearClipPlane, far=_farClipPlane):void 
+		private function generateParticles(typ:uint, _num:uint, height:int):void 
 		{
 			var particle:Particle;
 			var num:uint = _num;
 			while( num > 0 ) 
 			{
 				particle = new Particle(typ);
-				particle.z = Interp.remap(near, far, Math.random());
+				particle.z = Interp.remap(_nearClipPlane, _farClipPlane, Math.random());
 				particle.y = height;
 				switch (typ) 
 				{
@@ -102,7 +102,7 @@ package object
 						particle.width *= 0.75;
 						particle.height *= 2;
 						particle.rotationX = Math.PI * 0.5;
-						particle.z = Interp.remap(near, far, num / _num);
+						particle.z = Interp.remap(_nearClipPlane, _farClipPlane, num / _num);
 						break;
 					case 5: // tree of scene2
 						particle.width *= 3;
@@ -120,7 +120,7 @@ package object
 						particle.width *= 2;
 						particle.height *= 2;
 						particle.rotationX = Math.PI * 0.5;
-						particle.z = near + 20;
+						particle.z = _nearClipPlane + 20;
 					default:
 				}
 				num--;
@@ -169,18 +169,19 @@ package object
 		
 		private function onFixUpdate():void 
 		{
+			var j:uint = 0;
 			for (var i:int = 0; i < _particles.length; i++) 
 			{
 				if (_particles[i].z < _nearClipPlane) {
 					_particles[i].z += _farClipPlane - _nearClipPlane;
 					
 					if (_isPlaying){
-						this.addChild(_particles[i], 0);
+						this.addChildAt(_particles[i], 0);
 						TweenLite.from(_particles[i], 0.5, { alpha:0 } );
 					}
-					else{
+					else {
 						this.removeChild(_particles[i]);
-						if (i == _particles.length - 1)
+						if (this.numChildren == 0)
 							this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onUpdate);
 					}
 				}
