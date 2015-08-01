@@ -169,7 +169,6 @@ package object
 		
 		private function onFixUpdate():void 
 		{
-			var j:uint = 0;
 			for (var i:int = 0; i < _particles.length; i++) 
 			{
 				if (_particles[i].z < _nearClipPlane) {
@@ -183,6 +182,7 @@ package object
 						this.removeChild(_particles[i]);
 						if (this.numChildren == 0)
 							this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onUpdate);
+							parent.removeChild(this);
 					}
 				}
 			}

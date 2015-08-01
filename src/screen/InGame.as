@@ -106,8 +106,7 @@ package screen
 				5, 1300, // red tree
 				60, 1300 // Other bush
 				)));
-			for (var i:uint = 0; i < _env.length; i++ )
-				addChild(_env[i]);
+			addChild(_env[_current_env]);
 			_env[_current_env].addToScene();
 			
 			var bike:Image = new Image(Assets.getAtlas("env").getTexture("bikefront"));
@@ -155,7 +154,9 @@ package screen
 			var scene_dist:Number = lap / _env.length;
 			if (_current_env != Math.floor(_total_dist % lap / scene_dist)) {
 				_env[_current_env].stop();
+				var display_index:int = this.getChildIndex(_env[_current_env]);
 				_current_env = (_current_env + 1) % _env.length;
+				this.addChildAt(_env[_current_env], display_index - 1);
 				_env[_current_env].play();
 			}
 		}
