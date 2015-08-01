@@ -64,6 +64,7 @@ package
 		// XML Param
 		private var settings:XML;
 		private var inGame_timeout:Number;
+		private var stopReset:Boolean;
 		
 		// Serial Port setup
 		public var serialPort:ArduinoConnector;
@@ -110,6 +111,7 @@ package
 			portNo = settings.com[0];
 			bautRate = Number(settings.bautRate[0]);
 			inGame_timeout = Number(settings.timeout);
+			stopReset = settings.stopReset[0] == "true";
 			
 			//addEventListener(Event.ENTER_FRAME, onUpdate);
 			init();
@@ -244,6 +246,7 @@ package
 		private function onStarlingInit(e:starling.events.Event):void 
 		{
 			Game(_starling.root).inGame_timeout = inGame_timeout;
+			Game(_starling.root).stopReset = stopReset;
 			trace("Timeout set to : " + inGame_timeout);
 		}
 		

@@ -26,6 +26,7 @@ package
 		public var currentLvl:uint = 0;
 		public var globalSpeed:Number = 1;
 		public var inGame_timeout:Number = 10000;
+		public var stopReset:Boolean = false;
 		
 		public function Game() 
 		{
@@ -93,6 +94,7 @@ package
 					nextLvl = inGame;
 					opening.stop();
 					inGame.timeOut = inGame_timeout;
+					inGame.stopReset = stopReset;
 					inGame.reset();
 					break;
 				case 2:

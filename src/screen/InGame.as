@@ -36,10 +36,11 @@ package screen
 		private var _isPlaying:Boolean = false;
 		
 		private var _timeOut:Number = 30000;
+		private var _stopReset:Boolean = false;
 		private var _timeOut_start:Number = 0;
 		
 		private var minimap:SpriterMC;
-		private var lap:Number = 3;
+		private var lap:Number = 1;
 		
 		public function InGame() 
 		{
@@ -106,8 +107,12 @@ package screen
 				5, 1300, // red tree
 				60, 1300 // Other bush
 				)));
-			addChild(_env[_current_env]);
+			for (var i:int = _env.length - 1; i >=0 ; i--){ 
+				addChild(_env[i]);
+				_env[i].visible = false;
+			}
 			_env[_current_env].addToScene();
+			_env[_current_env].visible = true;
 			
 			var bike:Image = new Image(Assets.getAtlas("env").getTexture("bikefront"));
 			addChild(bike);
@@ -154,10 +159,16 @@ package screen
 			var scene_dist:Number = lap / _env.length;
 			if (_current_env != Math.floor(_total_dist % lap / scene_dist)) {
 				_env[_current_env].stop();
-				var display_index:int = this.getChildIndex(_env[_current_env]);
+				var display_index1:int = this.getChildIndex(_env[_current_env]);
+				var tmp_env = _current_env;
 				_current_env = (_current_env + 1) % _env.length;
-				this.addChildAt(_env[_current_env], display_index - 1);
+				var display_index2:int = this.getChildIndex(_env[_current_env]);
+				if(display_index1 < display_index2){
+					this.setChildIndex(_env[_current_env], display_index1);
+					this.setChildIndex(_env[tmp_env], display_index2);
+				}
 				_env[_current_env].play();
+				_env[_current_env].visible = true;
 			}
 		}
 		
@@ -194,6 +205,14 @@ package screen
 		public function reset():void 
 		{
 				_total_dist = _total_time = 0;
+				if(_current_env != 0){
+					_env[_current_env].visible = false;
+					var display_index:int = getChildIndex(_env[_current_env]);
+					_current_env = 0;
+					setChildIndex(_env[0], display_index);
+					_env[0].visible = true;
+				}
+				//_env[0].addToScene();
 		}
 		
 		public function set globalSpeed(value:Number):void 
@@ -225,6 +244,7 @@ package screen
 			} else if (_globalSpeed > 0 && _hud_score.y == 300) {
 				_hud_score.hide();
 				_timeOut_start = 0;
+				if (_stopReset) this.reset();
 				this.play();
 			}
 				
@@ -239,6 +259,11 @@ package screen
 		public function set timeOut(value:Number):void 
 		{
 			_timeOut = value;
+		}
+		
+		public function set stopReset(value:Boolean):void 
+		{
+			_stopReset = value;
 		}
 		
 	}

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <settings>
+	<!-- COM port setup -->
 	<com>5</com>
 	<bautRate>9600</bautRate>
-	<isDiag>true</isDiag>
-    <sampleRate>200</sampleRate>
+	<!-- End of COM port setup -->
+	
+	<!-- Game logic setup -->
     <wheelLength>3</wheelLength>
+	<lap>1</lap>
 	<timeout>5000</timeout>
+	<stopReset>true</stopReset>
+	<!-- End of Game logic setup -->
+	
+	<!-- Misc setup -->
+	<isDiag>false</isDiag>
+    <sampleRate>200</sampleRate>
+	<!-- End of Misc setup -->
 </settings>

@@ -39,6 +39,7 @@ package object
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			this.removeChildren();
 			
 			_particles = new Vector.<Particle>();
 			_isPlaying = false;
@@ -105,8 +106,8 @@ package object
 						particle.z = Interp.remap(_nearClipPlane, _farClipPlane, num / _num);
 						break;
 					case 5: // tree of scene2
-						particle.width *= 3;
-						particle.height *= 3;
+						particle.width *= 2;
+						particle.height *= 2;
 						particle.x = Math.random() > 0.5 ? Interp.remap(-1000, 200, Math.random()) : Interp.remap(880, 2080, Math.random());
 						break;
 					case 6: // bush of scene2
@@ -130,6 +131,7 @@ package object
 		
 		public function addToScene():void 
 		{
+			this.removeChildren();
 			for (var i:int = 0; i < _particles.length; i++) 
 			{
 				addChild(_particles[i]);
@@ -180,9 +182,12 @@ package object
 					}
 					else {
 						this.removeChild(_particles[i]);
-						if (this.numChildren == 0)
+						if (this.numChildren == 0){
 							this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onUpdate);
-							parent.removeChild(this);
+							this.visible = false;
+							//if(parent)
+								//parent.removeChild(this);
+						}
 					}
 				}
 			}
