@@ -8,6 +8,7 @@ package screen
 	import flash.filesystem.File;
 	import object.Hud;
 	import object.MovingEnv;
+	import object.Particle;
 	import object.Score;
 	import starling.animation.Juggler;
 	import starling.display.Image;
@@ -22,9 +23,11 @@ package screen
 	public class InGame extends Sprite 
 	{
 		private var _globalSpeed:Number = 1;
+		private var _baseSpeed:Number = -100;
 		private var _juggler:Juggler;
 		private var _env:Vector.<MovingEnv>;
 		private var _current_env:uint = 0;
+		private var _startline:Particle;
 		private var _clouds:MovingEnv;
 		private var _hud_dist:Hud;
 		private var _hud_time:Hud;
@@ -86,8 +89,7 @@ package screen
 				100, 1300, // grass
 				10, 1300, // line
 				0, 0, // red tree
-				0, 0, // other bush
-				1, 1301 // startline
+				0, 0 // other bush
 				)));
 			_env.push(new MovingEnv(new Array(
 				0, 0, // cloud (amount, heigh in y)
@@ -113,6 +115,16 @@ package screen
 			}
 			_env[_current_env].addToScene();
 			_env[_current_env].visible = true;
+			
+			_startline = new Particle(7); // Startline
+			_startline.z = 200;
+			_startline.width = 400;
+			_startline.height = 300;
+			_startline.y = 1300;
+			_startline.x = 540;
+			_startline.rotationX = Math.PI * 0.5;
+			addChild(_startline);
+			
 			
 			var bike:Image = new Image(Assets.getAtlas("env").getTexture("bikefront"));
 			addChild(bike);
@@ -151,6 +163,7 @@ package screen
 		
 		private function onEnterFrame(e:EnterFrameEvent):void 
 		{
+			
 			//var dtime:Number = e.passedTime * _globalSpeed ;
 			//_juggler.advanceTime(dtime);
 			var animation:Animation = minimap.currentAnimation;
@@ -160,7 +173,7 @@ package screen
 			if (_current_env != Math.floor(_total_dist % lap / scene_dist)) {
 				_env[_current_env].stop();
 				var display_index1:int = this.getChildIndex(_env[_current_env]);
-				var tmp_env = _current_env;
+				var tmp_env:uint = _current_env;
 				_current_env = (_current_env + 1) % _env.length;
 				var display_index2:int = this.getChildIndex(_env[_current_env]);
 				if(display_index1 < display_index2){
@@ -169,7 +182,12 @@ package screen
 				}
 				_env[_current_env].play();
 				_env[_current_env].visible = true;
+				if (_current_env == 0)
+					_startline.z = _env[0].farClipPlane;
 			}
+			
+			// Animate starline
+			_startline.z += e.passedTime * _globalSpeed * _baseSpeed;
 		}
 		
 		
@@ -177,7 +195,6 @@ package screen
 		private function destory(e:Event):void 
 		{
 			removeEventListener(Event.REMOVED_FROM_STAGE, destory);
-			
 		}
 		
 		public function play():void 
@@ -205,14 +222,15 @@ package screen
 		public function reset():void 
 		{
 				_total_dist = _total_time = 0;
-				if(_current_env != 0){
+				if (_current_env != 0) {
+					_env[_current_env].removeChildren();
 					_env[_current_env].visible = false;
 					var display_index:int = getChildIndex(_env[_current_env]);
 					_current_env = 0;
 					setChildIndex(_env[0], display_index);
 					_env[0].visible = true;
+					_env[0].addToScene();
 				}
-				//_env[0].addToScene();
 		}
 		
 		public function set globalSpeed(value:Number):void 

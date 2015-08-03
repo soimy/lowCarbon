@@ -95,7 +95,7 @@ package
 					opening.stop();
 					inGame.timeOut = inGame_timeout;
 					inGame.stopReset = stopReset;
-					inGame.reset();
+					//inGame.reset();
 					break;
 				case 2:
 				default:
@@ -118,6 +118,8 @@ package
 					//alpha:1,
 					onComplete:function ():void
 					{
+						if (currentStage == inGame)
+							inGame.reset();
 						currentStage.play();
 					}
 				} 

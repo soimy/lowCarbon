@@ -36,7 +36,7 @@ package object
 			stop();
 		}
 		
-		private function init(e:Event):void 
+		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			this.removeChildren();
